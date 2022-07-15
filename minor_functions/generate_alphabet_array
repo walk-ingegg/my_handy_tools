@@ -8,8 +8,8 @@ def generate_alphabet_array():
 
     for i in capitals:
         for j in capitals:
-            combined_letter = i + j
-            alphabets.append(combined_letter)
+            capital = i + j
+            alphabets.append(capital)
 
     return alphabets
 
