@@ -1,0 +1,17 @@
+import string
+
+
+def generate_alphabet_array():
+    capitals = list(string.ascii_uppercase)
+    alphabets = []
+    alphabets += capitals
+
+    for i in capitals:
+        for j in capitals:
+            combined_letter = i + j
+            alphabets.append(combined_letter)
+
+    return alphabets
+
+
+print(generate_alphabet_array())
