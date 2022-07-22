@@ -1,8 +1,10 @@
+from email import message
 import os
 import json
 import glob
 import pyperclip
 import subprocess
+from tkinter import messagebox
 
 filepath = pyperclip.paste()
 filepath = filepath.strip('"')
@@ -23,7 +25,7 @@ def getDir():
     if json_ != None:
         return json_["business"]["root_path"]
     else:
-        print("failed to find info.json")
+        messagebox.showwarning("failed to find info.json")
         pass
 
 
@@ -42,7 +44,7 @@ def getLocalPath(path, dirpath):
         return path_
 
     else:
-        print("failed to get local path")
+        messagebox.showwarning("failed to get local path")
         pass
 
 
