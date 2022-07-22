@@ -54,6 +54,7 @@ def open_dir(path):
 
     subprocess.Popen(['explorer', path])
 
+
 def open_explorer(name):
     if name in filepath:
         mydir = get_dir()
