@@ -3,12 +3,13 @@ import json
 import glob
 import pyperclip
 import subprocess
+from tkinter import messagebox
 
 filepath = pyperclip.paste()
 filepath = filepath.strip('"')
 
 
-def getDir():
+def get_dir():
     # get path to Dropbox directory
     info = "\Dropbox\info.json"
     env = ["APPDATA", "LOCALAPPDATA"]
@@ -23,11 +24,11 @@ def getDir():
     if json_ != None:
         return json_["business"]["root_path"]
     else:
-        print("failed to find info.json")
+        messagebox.showwarning("ERROR", "failed to find info.json")
         pass
 
 
-def getLocalPath(path, dirpath):
+def get_local_path(path, dirpath):
     if path and dirpath:
         ps = path.split("\\")
         pss = []
@@ -42,7 +43,7 @@ def getLocalPath(path, dirpath):
         return path_
 
     else:
-        print("failed to get local path")
+        messagebox.showwarning("ERROR", "failed to get local path")
         pass
 
 
@@ -54,9 +55,10 @@ def open_dir(path):
     subprocess.Popen(['explorer', path])
 
 
-if not "Dropbox" in filepath:
+if not "Syntegrate&vicc Dropbox" in filepath:
+    messagebox.showwarning("ERROR", "No Dropbox path in clipboard")
     pass
 else:
-    mydir = getDir()
-    local = getLocalPath(filepath, mydir)
+    mydir = get_dir()
+    local = get_local_path(filepath, mydir)
     open_dir(local)
