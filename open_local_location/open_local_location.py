@@ -54,11 +54,10 @@ def open_dir(path):
 
     subprocess.Popen(['explorer', path])
 
-
-if not "Syntegrate&vicc Dropbox" in filepath:
-    messagebox.showwarning("ERROR", "No Dropbox path in clipboard")
-    pass
-else:
-    mydir = get_dir()
-    local = get_local_path(filepath, mydir)
-    open_dir(local)
+def open_explorer(name):
+    if name in filepath:
+        mydir = get_dir()
+        local = get_local_path(filepath, mydir)
+        open_dir(local)
+    else:
+        messagebox.showwarning("ERROR", "No Dropbox path in clipboard")
