@@ -1,12 +1,17 @@
 import os
 import json
 import glob
-import pyperclip
 import subprocess
-from tkinter import messagebox
+from tkinter import messagebox, Tk
 
-filepath = pyperclip.paste()
-filepath = filepath.strip('"')
+
+def show_message(title, message):
+    root = Tk()
+    root.geometry('300x300')
+    root.attributes('-topmost', True)
+    root.withdraw()
+
+    messagebox.showwarning(title, message)
 
 
 def get_dir(account):
@@ -24,7 +29,7 @@ def get_dir(account):
     if json_ != None:
         return json_[account]["root_path"]
     else:
-        messagebox.showwarning("ERROR", "failed to find info.json")
+        show_message("ERROR", "failed to find info.json")
         pass
 
 
@@ -43,7 +48,7 @@ def get_local_path(path, dirpath):
         return path_
 
     else:
-        messagebox.showwarning("ERROR", "failed to get local path")
+        show_message("ERROR", "failed to get local path")
         pass
 
 
@@ -55,12 +60,13 @@ def open_dir(path):
     subprocess.Popen(['explorer', path])
 
 
-def open_explorer(account_type):
+def open_explorer(account_type, file_path):
     mydir = get_dir(account_type)
     name = mydir.split("\\")
     path = name[len(name)-1]
-    if path in filepath:
-        local = get_local_path(filepath, mydir)
+    if path in file_path:
+        local = get_local_path(file_path, mydir)
         open_dir(local)
     else:
-        messagebox.showwarning("ERROR", "No Dropbox path in clipboard")
+        show_message("ERROR", "No Dropbox path in clipboard")
+        pass
