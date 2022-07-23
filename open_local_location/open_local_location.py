@@ -9,7 +9,7 @@ filepath = pyperclip.paste()
 filepath = filepath.strip('"')
 
 
-def get_dir():
+def get_dir(account):
     # get path to Dropbox directory
     info = "\Dropbox\info.json"
     env = ["APPDATA", "LOCALAPPDATA"]
@@ -22,7 +22,7 @@ def get_dir():
             break
 
     if json_ != None:
-        return json_["business"]["root_path"]
+        return json_[account]["root_path"]
     else:
         messagebox.showwarning("ERROR", "failed to find info.json")
         pass
@@ -55,9 +55,11 @@ def open_dir(path):
     subprocess.Popen(['explorer', path])
 
 
-def open_explorer(name):
-    if name in filepath:
-        mydir = get_dir()
+def open_explorer(account_type):
+    mydir = get_dir(account_type)
+    name = mydir.split("\\")
+    path = name[len(name)-1]
+    if path in filepath:
         local = get_local_path(filepath, mydir)
         open_dir(local)
     else:
