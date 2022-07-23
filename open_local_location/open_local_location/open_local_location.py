@@ -3,6 +3,7 @@ import json
 import glob
 import subprocess
 from tkinter import messagebox, Tk
+from urllib.request import OpenerDirector
 
 
 def show_message(title, message):
@@ -57,7 +58,7 @@ def open_dir(path):
     if os.path.isfile(path):
         path = os.path.dirname(path)
 
-    subprocess.Popen(['explorer', path])
+    subprocess.Popen(['explorer', path], shell=False)
 
 
 def open_explorer(account_type, file_path):
@@ -70,3 +71,9 @@ def open_explorer(account_type, file_path):
     else:
         show_message("ERROR", "No Dropbox path in clipboard")
         pass
+
+
+# import pyperclip
+# file_path = pyperclip.paste()
+# file_path = file_path.strip('"')
+# open_explorer('business', file_path)
